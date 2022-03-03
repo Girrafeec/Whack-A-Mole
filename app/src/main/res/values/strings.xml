@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Whack A Mole</string>
-    <string name="mole_rules"></string>
-    <string name="golden_mole_rule"></string>
-    <string name="tnt_mole_rules"></string>
+    <string name="mole_rules">Whack the moles! Tap the most moles within 30 seconds and get the maximum score!</string>
+    <string name="golden_mole_rule">If you see a golden mole, then hurry up. If you manage to click on it, you will get 3x points!</string>
+    <string name="tnt_mole_rules">Watch out for moles with TNT, because if you hit it, the game will end!</string>
 </resources>

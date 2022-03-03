@@ -1,6 +1,8 @@
 package com.girrafeecstud.whacamole;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -13,6 +15,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button startGame, rules;
@@ -21,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ImageButton exitApp;
 
-    Dialog exitDialog;
+    Dialog exitDialog, rulesDialog;
 
     @Override
     public void onBackPressed() {
@@ -36,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.exitAppBtn:
                 showExitDialog();
+                break;
+            case R.id.gameRulesBtn:
+                showRulesDialog();
                 break;
             default:
                 break;
@@ -53,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         startGame.setOnClickListener(this);
         exitApp.setOnClickListener(this);
+        rules.setOnClickListener(this);
     }
 
     // Initialization of UI elements
@@ -63,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bestRecordTxt = findViewById(R.id.recordTxt);
 
         exitDialog = new Dialog(this);
+        rulesDialog = new Dialog(this);
     }
 
     // Procedure starts game activity
@@ -111,6 +120,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 finishAffinity();
+            }
+        });
+    }
+
+    // Show rules dialog
+    private void showRulesDialog(){
+        rulesDialog.setContentView(R.layout.game_rules_dialog_layout);
+        exitDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        ImageButton closeRules = rulesDialog.findViewById(R.id.closeRulesBtn);
+        RecyclerView rulesRecView = rulesDialog.findViewById(R.id.rulesRecView);
+
+        ArrayList<RuleItem> rulesArrayList = new ArrayList<>();
+
+        rulesArrayList.add(new RuleItem(R.drawable.ic_mole, getResources().getString(R.string.mole_rules)));
+        rulesArrayList.add(new RuleItem(R.drawable.ic_golden_mole,getResources().getString(R.string.golden_mole_rule)));
+        rulesArrayList.add(new RuleItem(R.drawable.ic_tnt_mole, getResources().getString(R.string.tnt_mole_rules)));
+
+        System.out.println("ar sz: " + rulesArrayList.size());
+
+        RulesRecViewAdapter adapter = new RulesRecViewAdapter(rulesArrayList, MainActivity.this);
+        rulesRecView.setAdapter(adapter);
+        rulesRecView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
+
+        System.out.println("size: " + adapter.getItemCount());
+
+        rulesDialog.show();
+
+        closeRules.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rulesDialog.dismiss();
             }
         });
     }
