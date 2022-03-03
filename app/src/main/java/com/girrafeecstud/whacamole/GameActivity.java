@@ -1,6 +1,7 @@
 package com.girrafeecstud.whacamole;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,8 @@ public class GameActivity extends AppCompatActivity {
 
     private ImageButton firstMole, secondMole, thirdMole, fourthMole, fifthMole, sixthMole, seventhMole, eigthMole, ninethMole;
 
+    CountDownTimer mainCountDownTimer;
+
     private ArrayList<Integer> availiableMoleIdArrayList = new ArrayList<>();
 
     int[] moleIdArray = {
@@ -37,6 +40,8 @@ public class GameActivity extends AppCompatActivity {
             R.id.ninethMoleBtn};
 
     private static boolean moleIsActive = false;
+
+    public static final String FINAL_SCORE_VALUE_EXTRA = "FINAL_SCORE_VALUE_EXTRA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,13 +85,13 @@ public class GameActivity extends AppCompatActivity {
     private void startTimer(){
         // Interval - 1 second
         // Timer - 30 seconds
-        new CountDownTimer(30000, 1) {
+        mainCountDownTimer = new CountDownTimer(10000, 1) { // TODO поменять на 30000 в конце работы
             public void onTick(long millisUntilFinished) {
                 NumberFormat f = new DecimalFormat("00");
                 long seconds = (millisUntilFinished / 1000) % 60;
                 long millies = millisUntilFinished % 1000;
                 countDownTimerTxt.setText(f.format(seconds) + ":" + f.format(millies));
-                if (!moleIsActive)
+                if(!moleIsActive)
                     showMole();
             }
             // When the game is over it will be 00:00
@@ -100,11 +105,30 @@ public class GameActivity extends AppCompatActivity {
     // Start game
     private void showMole(){
 
+        // Special moles
+        boolean tntMole = false;
+        boolean goldenMole = false;
+
+        // Calculate the chance of special moles
+        Random randomMole = new Random();
+        int randomMoleValue = randomMole.nextInt(20);
+        // 10% chance to see mole with tnt
+        if (randomMoleValue == 0 || randomMoleValue == 1)
+            tntMole  = true;
+
+        // 5% chance to see golden mole
+        if (randomMoleValue == 2)
+            goldenMole = true;
+
         // Random mole crawals out
         ImageButton activeMole
                 = findViewById(availiableMoleIdArrayList.get(new Random().nextInt(availiableMoleIdArrayList.size())));
         activeMole.setEnabled(true);
-        activeMole.setImageResource(R.drawable.mole_red);
+        activeMole.setImageResource(R.drawable.ic_mole);
+      // if (tntMole)
+           // activeMole.setImageResource(R.drawable.tnt_mole);
+       // if (goldenMole)
+           // activeMole.setImageResource(R.drawable.golden_mole);
         activeMole.setEnabled(true);
         moleIsActive = true;
 
@@ -116,16 +140,19 @@ public class GameActivity extends AppCompatActivity {
                 availiableMoleIdArrayList.clear();
                 fillMolesArrayList(activeMole.getId());
                 // Hide mole
-                activeMole.setImageResource(R.drawable.mole_gray);
+                activeMole.setImageResource(R.drawable.ic_mole_hole);
                 activeMole.setEnabled(false);
                 moleIsActive = false;
             }
         };
         // Mole hides after 0.5 second
-        handler.postDelayed(runnable, 500);
+        handler.postDelayed(runnable, 600);
 
         // Listeners for all buttons with moles
         for (int i=0; i< moleIdArray.length; i++){
+
+            boolean innerTntMoleStatus = tntMole;
+            boolean innerGoldenMoleStatus = goldenMole;
 
             ImageButton imageButton = findViewById(moleIdArray[i]);
 
@@ -133,14 +160,26 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    if (imageButton.isEnabled()) {
-                        imageButton.setImageResource(R.drawable.mole_gray);
-                        System.out.println("score:  " + scoreTxt.getText());
-                        int score = Integer.parseInt(scoreTxt.getText().toString()) + 1;
-                        scoreTxt.setText(String.valueOf(score));
-                        Toast.makeText(GameActivity.this, String.valueOf(imageButton.getId()), Toast.LENGTH_SHORT).show();
+                    if (!imageButton.isEnabled())
+                        return;
 
-                    }
+                        imageButton.setImageResource(R.drawable.ic_mole_hole);
+
+                        // Finish game if we click on mole with tnt
+                        if (innerTntMoleStatus == true){
+                            mainCountDownTimer.cancel();
+                            mainCountDownTimer.onFinish();
+                            return;
+                        }
+
+                        // Add 3 points if clicked at golden mole
+                        if (innerGoldenMoleStatus == true){
+                            scoreTxt.setText(String.valueOf(Integer.parseInt(scoreTxt.getText().toString()) + 3));
+                            return;
+                        }
+
+                        scoreTxt.setText(String.valueOf(Integer.parseInt(scoreTxt.getText().toString()) + 1));
+                        Toast.makeText(GameActivity.this, String.valueOf(imageButton.getId()), Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -151,6 +190,7 @@ public class GameActivity extends AppCompatActivity {
     // Start Result Activity when game is finished
     private void startResultActivity(){
         Intent intent = new Intent(GameActivity.this, ResultActivity.class);
+        intent.putExtra(GameActivity.FINAL_SCORE_VALUE_EXTRA, scoreTxt.getText().toString());
         GameActivity.this.startActivity(intent);
     }
 }
