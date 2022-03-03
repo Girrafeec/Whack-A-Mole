@@ -22,6 +22,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private TextView countDownTimerTxt, scoreTxt;
 
     private ImageButton resPauseBtn;
+    private ImageButton firstMole, secondMole,thirdMole,fourthMole,fifthMole,sixthMole,seventhMole,eighthMole,ninethMole;
 
     private CountDownTimer mainCountDownTimer;
 
@@ -71,6 +72,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         initUiElements();
 
+        disableHoles();
+
         fillMolesArrayList(0);
 
         resPauseBtn.setOnClickListener(this);
@@ -79,12 +82,36 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initUiElements(){
+
+        firstMole = findViewById(R.id.firstMoleBtn);
+        secondMole = findViewById(R.id.secondMoleBtn);
+        thirdMole = findViewById(R.id.thirdMoleBtn);
+        fourthMole = findViewById(R.id.fourthMoleBtn);
+        fifthMole = findViewById(R.id.fifthMoleBtn);
+        sixthMole = findViewById(R.id.sixthMoleBtn);
+        seventhMole = findViewById(R.id.seventhMoleBtn);
+        eighthMole = findViewById(R.id.eigthMoleBtn);
+        ninethMole = findViewById(R.id.ninethMoleBtn);
+
         countDownTimerTxt = findViewById(R.id.countDownTimerTxt);
         scoreTxt = findViewById(R.id.scoreTxt);
 
         startGameCountDownTimer =  findViewById(R.id.pulseCountDown);
 
         resPauseBtn = findViewById(R.id.pauseGameBtn);
+    }
+
+    // Disable all holes at the start of the game
+    private void disableHoles(){
+        firstMole.setEnabled(false);
+        secondMole.setEnabled(false);
+        thirdMole.setEnabled(false);
+        fourthMole.setEnabled(false);
+        fifthMole.setEnabled(false);
+        sixthMole.setEnabled(false);
+        seventhMole.setEnabled(false);
+        eighthMole.setEnabled(false);
+        ninethMole.setEnabled(false);
     }
 
     // Initialization of availiable moles array list values
@@ -121,8 +148,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void resumeGame(){
         int time = (int) curMillies + (int) curSeconds*1000;
         startPulse(time);
-        //mainCountDownTimer.onTick(curSeconds*1000 + curMillies);
-        //mainCountDownTimer.start();
         resPauseBtn.setImageResource(R.drawable.ic_baseline_pause);
     }
 
@@ -260,7 +285,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         }
 
                         scoreTxt.setText(String.valueOf(Integer.parseInt(scoreTxt.getText().toString()) + 1));
-                        Toast.makeText(GameActivity.this, String.valueOf(imageButton.getId()), Toast.LENGTH_SHORT).show();
                 }
             });
 
