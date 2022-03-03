@@ -9,11 +9,15 @@
         <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/drawable/ic_whac_a_mole_logo.xml" value="0.21574074074074073" />
         <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/drawable/mole_gray.xml" value="0.2203125" />
         <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/drawable/mole_red.xml" value="0.21574074074074073" />
+        <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/drawable/no_exit_button_shape.xml" value="0.2101851851851852" />
         <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/drawable/play_button_shape.xml" value="0.21574074074074073" />
+        <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/drawable/white_rounded_recktangle.xml" value="0.2101851851851852" />
+        <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/drawable/yes_exit_button_shape.xml" value="0.2111111111111111" />
         <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/font/bauhaus_93.xml" value="0.21574074074074073" />
         <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/layout/activity_game.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/layout/activity_result.xml" value="0.25" />
+        <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/layout/app_exit_dialog_layout.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

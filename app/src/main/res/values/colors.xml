@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="main_orange">#FFD70E</color>
     <color name="dark_transparent">#41000000</color>
+    <color name="red_record_color">#E41E1E</color>
 </resources>

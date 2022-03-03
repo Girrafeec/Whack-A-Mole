@@ -30,7 +30,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         ResultActivity.this.startActivity(new Intent(ResultActivity.this, MainActivity.class));
     }
 
@@ -55,6 +54,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
     private void getValuesFromGameActivity(){
         Intent intent = getIntent();
-        currentScore.setText(intent.getStringExtra(GameActivity.FINAL_SCORE_VALUE_EXTRA));
+        currentScore.setText(currentScore.getText().toString() + intent.getStringExtra(GameActivity.FINAL_SCORE_VALUE_EXTRA));
     }
 }
