@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gusakov.library.PulseCountDown;
+//import com.gusakov.library.PulseCountDown;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -26,7 +26,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private CountDownTimer mainCountDownTimer;
 
-    private PulseCountDown startGameCountDownTimer;
+    //private PulseCountDown startGameCountDownTimer;
 
     private ArrayList<Integer> availiableMoleIdArrayList = new ArrayList<>();
 
@@ -133,9 +133,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 if(!moleIsActive)
                     showMole();
             }
-            // When the game is over it will be 00:00
+            // When the game is over it will be 0.000
             public void onFinish() {
-                countDownTimerTxt.setText("00:00");
+                countDownTimerTxt.setText("0.000");
                 startResultActivity();
             }
         }.start();
@@ -164,10 +164,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 = findViewById(availiableMoleIdArrayList.get(new Random().nextInt(availiableMoleIdArrayList.size())));
         activeMole.setEnabled(true);
         activeMole.setImageResource(R.drawable.ic_mole);
-      // if (tntMole)
-           // activeMole.setImageResource(R.drawable.tnt_mole);
-       // if (goldenMole)
-           // activeMole.setImageResource(R.drawable.golden_mole);
+       if (tntMole)
+            activeMole.setImageResource(R.drawable.ic_tnt_mole);
+        if (goldenMole)
+            activeMole.setImageResource(R.drawable.ic_golden_mole);
         activeMole.setEnabled(true);
         moleIsActive = true;
 
