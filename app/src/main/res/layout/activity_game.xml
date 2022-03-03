@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameActivity"
+    tools:context="com.girrafeecstud.whacamole.GameActivity"
     android:background="@drawable/ic_sky_background">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/countDownTimerTxt"
-        android:text="29.999"
+        android:text="30.000"
         android:textSize="30dp"
         android:textColor="@color/main_orange"
         android:background="@drawable/play_button_shape"
@@ -19,7 +19,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="10dp"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,12 +40,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/pauseGameBtn"
-        android:background="@android:color/transparent"
+        android:background="@drawable/play_button_shape"
         android:src="@drawable/ic_baseline_pause"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:padding="10dp"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -72,6 +74,7 @@
                 android:src="@drawable/ic_mole_hole"
                 android:layout_weight="1"
                 android:padding="5dp"
+                android:clickable="false"
                 android:layout_gravity="bottom"/>
 
             <ImageButton
@@ -82,6 +85,7 @@
                 android:src="@drawable/ic_mole_hole"
                 android:layout_weight="1"
                 android:padding="5dp"
+                android:clickable="false"
                 android:layout_gravity="bottom"/>
 
             <ImageButton
@@ -92,6 +96,7 @@
                 android:src="@drawable/ic_mole_hole"
                 android:layout_weight="1"
                 android:padding="5dp"
+                android:clickable="false"
                 android:layout_gravity="bottom"/>
 
         </LinearLayout>
@@ -111,6 +116,7 @@
                 android:src="@drawable/ic_mole_hole"
                 android:layout_weight="1"
                 android:padding="5dp"
+                android:clickable="false"
                 android:layout_gravity="bottom"/>
 
             <ImageButton
@@ -121,6 +127,7 @@
                 android:src="@drawable/ic_mole_hole"
                 android:layout_weight="1"
                 android:padding="5dp"
+                android:clickable="false"
                 android:layout_gravity="bottom"/>
 
             <ImageButton
@@ -131,6 +138,7 @@
                 android:src="@drawable/ic_mole_hole"
                 android:layout_weight="1"
                 android:padding="5dp"
+                android:clickable="false"
                 android:layout_gravity="bottom"/>
 
         </LinearLayout>
@@ -150,6 +158,7 @@
                 android:src="@drawable/ic_mole_hole"
                 android:layout_weight="1"
                 android:padding="5dp"
+                android:clickable="false"
                 android:layout_gravity="bottom"/>
 
             <ImageButton
@@ -160,6 +169,7 @@
                 android:src="@drawable/ic_mole_hole"
                 android:layout_weight="1"
                 android:padding="5dp"
+                android:clickable="false"
                 android:layout_gravity="bottom"/>
 
             <ImageButton
@@ -170,10 +180,34 @@
                 android:src="@drawable/ic_mole_hole"
                 android:layout_weight="1"
                 android:padding="5dp"
+                android:clickable="false"
                 android:layout_gravity="bottom"/>
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <com.gusakov.library.PulseCountDown
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:id = "@+id/pulseCountDown"
+        android:elegantTextHeight = "true"
+        android:fontFamily="@font/bauhaus_93"
+        android:textDirection = "firstStrong"
+        android:textAllCaps = "true"
+        android:textStyle = "normal"
+        android:paddingRight = "14dp"
+        android:paddingTop = "10dp"
+        android:paddingBottom = "8dp"
+        android:paddingLeft = "16dp"
+        android:textColor = "@color/white"
+        android:text = "3"
+        android:textSize = "100dp"
+        app:pc_endValue = "0"
+        app:pc_startValue = "3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

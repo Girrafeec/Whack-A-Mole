@@ -11,7 +11,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.gusakov.library.PulseCountDown;
+import com.gusakov.library.PulseCountDown;
+import com.gusakov.library.java.interfaces.OnCountdownCompleted;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -26,7 +27,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private CountDownTimer mainCountDownTimer;
 
-    //private PulseCountDown startGameCountDownTimer;
+    private PulseCountDown startGameCountDownTimer;
 
     private ArrayList<Integer> availiableMoleIdArrayList = new ArrayList<>();
 
@@ -45,7 +46,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private long curSeconds = 0, curMillies = 0;
 
+    private static final int GAME_TIME = 30000;
+
     public static final String FINAL_SCORE_VALUE_EXTRA = "FINAL_SCORE_VALUE_EXTRA";
+
+    @Override
+    public void onBackPressed() {
+        pauseGame();
+    }
 
     @Override
     public void onClick(View view) {
@@ -69,12 +77,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         resPauseBtn.setOnClickListener(this);
 
-        startTimer();
+        startPulse(GAME_TIME);
     }
 
     private void initUiElements(){
         countDownTimerTxt = findViewById(R.id.countDownTimerTxt);
         scoreTxt = findViewById(R.id.scoreTxt);
+
+        startGameCountDownTimer =  findViewById(R.id.pulseCountDown);
 
         resPauseBtn = findViewById(R.id.pauseGameBtn);
     }
@@ -111,25 +121,58 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     // Resume game
     private void resumeGame(){
-        mainCountDownTimer.onTick(curSeconds*1000 + curMillies);
-        mainCountDownTimer.start();
+        int time = (int) curMillies + (int) curSeconds*1000;
+        startPulse(time);
+        //mainCountDownTimer.onTick(curSeconds*1000 + curMillies);
+        //mainCountDownTimer.start();
         resPauseBtn.setImageResource(R.drawable.ic_baseline_pause);
     }
 
-    private void startTimer(){
+    // Start pulse timer before game
+    private void startPulse(int time){
+        startGameCountDownTimer.start(new OnCountdownCompleted() {
+            @Override
+            public void completed() {
+                startTimer(time);
+            }
+        });
+    }
+
+    // Start main game timer
+    private void startTimer(int time){
+
+        // Make resume pause Button visible
+        resPauseBtn.setVisibility(View.VISIBLE);
+
         // Interval - 1 second
         // Timer - 30 seconds
-        mainCountDownTimer = new CountDownTimer(10000, 1) { // TODO поменять на 30000 в конце работы
+        mainCountDownTimer = new CountDownTimer(time, 1) { // TODO поменять на 30000 в конце работы
             public void onTick(long millisUntilFinished) {
                 countDownWorks = true;
-                NumberFormat f = new DecimalFormat("00");
                 long seconds = (millisUntilFinished / 1000) % 60;
                 // Save current seconds remaining
                 curSeconds = seconds;
                 long millies = millisUntilFinished % 1000;
                 // Save current millies remaining
                 curMillies = millies;
-                countDownTimerTxt.setText(f.format(seconds) + ":" + f.format(millies));
+
+                String stringSeconds = "", stringMillies = "";
+
+                // Format seconds
+                if (String.valueOf(seconds).length() < 2)
+                    stringSeconds += " " + seconds;
+                else if (String.valueOf(seconds).length() == 2)
+                    stringSeconds += seconds;
+
+                // Format millies
+                if (String.valueOf(millies).length() < 2)
+                    stringMillies += "00" + millies;
+                else if (String.valueOf(millies).length() < 3)
+                    stringMillies += "0" + millies;
+                else if (String.valueOf(millies).length() == 3)
+                    stringMillies += millies;
+
+                countDownTimerTxt.setText(stringSeconds + "." + stringMillies);
                 if(!moleIsActive)
                     showMole();
             }
@@ -162,7 +205,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         // Random mole crawals out
         ImageButton activeMole
                 = findViewById(availiableMoleIdArrayList.get(new Random().nextInt(availiableMoleIdArrayList.size())));
-        activeMole.setEnabled(true);
+        // Set mole image
         activeMole.setImageResource(R.drawable.ic_mole);
        if (tntMole)
             activeMole.setImageResource(R.drawable.ic_tnt_mole);

@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">Whac A Mole</string>
+    <string name="app_name">Whack A Mole</string>
+    <string name="mole_rules"></string>
+    <string name="golden_mole_rule"></string>
+    <string name="tnt_mole_rules"></string>
 </resources>
