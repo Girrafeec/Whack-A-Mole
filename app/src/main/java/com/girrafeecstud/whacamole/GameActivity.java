@@ -13,18 +13,22 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gusakov.library.PulseCountDown;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView countDownTimerTxt, scoreTxt;
 
-    private ImageButton firstMole, secondMole, thirdMole, fourthMole, fifthMole, sixthMole, seventhMole, eigthMole, ninethMole;
+    private ImageButton resPauseBtn;
 
-    CountDownTimer mainCountDownTimer;
+    private CountDownTimer mainCountDownTimer;
+
+    private PulseCountDown startGameCountDownTimer;
 
     private ArrayList<Integer> availiableMoleIdArrayList = new ArrayList<>();
 
@@ -39,9 +43,22 @@ public class GameActivity extends AppCompatActivity {
             R.id.eigthMoleBtn,
             R.id.ninethMoleBtn};
 
-    private static boolean moleIsActive = false;
+    private static boolean moleIsActive = false, countDownWorks = false;
+
+    private long curSeconds = 0, curMillies = 0;
 
     public static final String FINAL_SCORE_VALUE_EXTRA = "FINAL_SCORE_VALUE_EXTRA";
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.pauseGameBtn:
+                rePauseTimer();
+                break;
+            default:
+                break;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +69,8 @@ public class GameActivity extends AppCompatActivity {
 
         fillMolesArrayList(0);
 
+        resPauseBtn.setOnClickListener(this);
+
         startTimer();
     }
 
@@ -59,15 +78,7 @@ public class GameActivity extends AppCompatActivity {
         countDownTimerTxt = findViewById(R.id.countDownTimerTxt);
         scoreTxt = findViewById(R.id.scoreTxt);
 
-        firstMole = findViewById(R.id.firstMoleBtn);
-        secondMole = findViewById(R.id.secondMoleBtn);
-        thirdMole = findViewById(R.id.thirdMoleBtn);
-        fourthMole = findViewById(R.id.fourthMoleBtn);
-        fifthMole = findViewById(R.id.fifthMoleBtn);
-        sixthMole = findViewById(R.id.sixthMoleBtn);
-        seventhMole = findViewById(R.id.seventhMoleBtn);
-        eigthMole = findViewById(R.id.eigthMoleBtn);
-        ninethMole = findViewById(R.id.ninethMoleBtn);
+        resPauseBtn = findViewById(R.id.pauseGameBtn);
     }
 
     // Initialization of availiable moles array list values
@@ -82,14 +93,44 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    // Procedure proccess pause and resume functions
+    private void rePauseTimer(){
+
+        if (countDownWorks == true){
+            pauseGame();
+            return;
+        }
+        resumeGame();
+
+    }
+
+    // Pause game
+    private void pauseGame(){
+        countDownWorks = false;
+        mainCountDownTimer.cancel();
+        resPauseBtn.setImageResource(R.drawable.ic_baseline_play_arrow);
+    }
+
+    // Resume game
+    private void resumeGame(){
+        mainCountDownTimer.onTick(curSeconds*1000 + curMillies);
+        mainCountDownTimer.start();
+        resPauseBtn.setImageResource(R.drawable.ic_baseline_pause);
+    }
+
     private void startTimer(){
         // Interval - 1 second
         // Timer - 30 seconds
         mainCountDownTimer = new CountDownTimer(10000, 1) { // TODO поменять на 30000 в конце работы
             public void onTick(long millisUntilFinished) {
+                countDownWorks = true;
                 NumberFormat f = new DecimalFormat("00");
                 long seconds = (millisUntilFinished / 1000) % 60;
+                // Save current seconds remaining
+                curSeconds = seconds;
                 long millies = millisUntilFinished % 1000;
+                // Save current millies remaining
+                curMillies = millies;
                 countDownTimerTxt.setText(f.format(seconds) + ":" + f.format(millies));
                 if(!moleIsActive)
                     showMole();

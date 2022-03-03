@@ -3,15 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/drawable/dark_transparent_background.xml" value="0.21574074074074073" />
+        <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/drawable/ic_baseline_pause.xml" value="0.21574074074074073" />
+        <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/drawable/ic_baseline_play_arrow.xml" value="0.21574074074074073" />
+        <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/drawable/ic_whac_a_mole_logo.xml" value="0.21574074074074073" />
         <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/drawable/mole_gray.xml" value="0.2203125" />
         <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/drawable/mole_red.xml" value="0.21574074074074073" />
+        <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/drawable/play_button_shape.xml" value="0.21574074074074073" />
+        <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/font/bauhaus_93.xml" value="0.21574074074074073" />
         <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/layout/activity_game.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/layout/activity_result.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/1/Desktop/Android Projects/WhacAMole/app/src/main/res/layout/activity_result.xml" value="0.25" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
