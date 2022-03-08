@@ -7,6 +7,10 @@
         android:radius="15dp"/>
 
     <solid
-        android:color="@color/red_record_color"/>
+        android:color="@color/white"/>
+
+    <stroke
+        android:color="@color/red_record_color"
+        android:width="3dp"/>
 
 </shape>

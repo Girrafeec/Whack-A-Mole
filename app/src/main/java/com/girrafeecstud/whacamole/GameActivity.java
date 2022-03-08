@@ -141,14 +141,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void pauseGame(){
         countDownWorks = false;
         mainCountDownTimer.cancel();
-        resPauseBtn.setImageResource(R.drawable.ic_baseline_play_arrow);
+        resPauseBtn.setImageResource(R.drawable.play_selector);
     }
 
     // Resume game
     private void resumeGame(){
         int time = (int) curMillies + (int) curSeconds*1000;
         startPulse(time);
-        resPauseBtn.setImageResource(R.drawable.ic_baseline_pause);
+        resPauseBtn.setImageResource(R.drawable.pause_selector);
     }
 
     // Start pulse timer before game

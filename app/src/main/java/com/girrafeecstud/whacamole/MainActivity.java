@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         exitYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                exitDialog.dismiss();
                 finishAffinity();
             }
         });
