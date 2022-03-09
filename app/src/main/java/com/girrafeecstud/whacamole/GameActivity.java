@@ -2,7 +2,11 @@ package com.girrafeecstud.whacamole;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -19,7 +23,7 @@ import java.util.Random;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView countDownTimerTxt, scoreTxt;
+    private TextView countDownTimerTxt, scoreTxt, startPauseMessage;
 
     private ImageButton resPauseBtn;
     private ImageButton firstMole, secondMole,thirdMole,fourthMole,fifthMole,sixthMole,seventhMole,eighthMole,ninethMole;
@@ -27,6 +31,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private CountDownTimer mainCountDownTimer;
 
     private PulseCountDown startGameCountDownTimer;
+
+    private ScreenReceiver screenReceiver;
 
     private ArrayList<Integer> availiableMoleIdArrayList = new ArrayList<>();
 
@@ -70,6 +76,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        // Disable landscape mode
+       GameActivity.this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         initUiElements();
 
         disableHoles();
@@ -79,6 +88,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         resPauseBtn.setOnClickListener(this);
 
         startPulse(GAME_TIME);
+
+        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+        intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        screenReceiver = new ScreenReceiver();
+        registerReceiver(screenReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        pauseGame();
     }
 
     private void initUiElements(){
@@ -95,6 +115,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         countDownTimerTxt = findViewById(R.id.countDownTimerTxt);
         scoreTxt = findViewById(R.id.scoreTxt);
+        startPauseMessage = findViewById(R.id.startPauseMessageTxt);
 
         startGameCountDownTimer =  findViewById(R.id.pulseCountDown);
 
@@ -141,11 +162,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void pauseGame(){
         countDownWorks = false;
         mainCountDownTimer.cancel();
+        //showPauseMessage();
         resPauseBtn.setImageResource(R.drawable.play_selector);
     }
 
     // Resume game
     private void resumeGame(){
+        startPauseMessage.setVisibility(View.GONE);
         int time = (int) curMillies + (int) curSeconds*1000;
         startPulse(time);
         resPauseBtn.setImageResource(R.drawable.pause_selector);
@@ -156,9 +179,35 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         startGameCountDownTimer.start(new OnCountdownCompleted() {
             @Override
             public void completed() {
+                //showStartMessage(time);
                 startTimer(time);
             }
         });
+    }
+
+
+    private void showPauseMessage(){
+        startPauseMessage.setText("Pause");
+        startPauseMessage.setVisibility(View.VISIBLE);
+    }
+
+    private void showStartMessage(int time){
+        startPauseMessage.setText("Start");
+        startPauseMessage.setVisibility(View.VISIBLE);
+        startPauseMessage.performClick();
+
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run(){
+                startPauseMessage.setEnabled(false);
+                startPauseMessage.setVisibility(View.GONE);
+                System.out.println("here");
+            }
+        };
+
+        handler.postDelayed(runnable, 1000);
+
     }
 
     // Start main game timer
@@ -183,7 +232,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
                 // Format seconds
                 if (String.valueOf(seconds).length() < 2)
-                    stringSeconds += " " + seconds;
+                    stringSeconds += "  " + seconds;
                 else if (String.valueOf(seconds).length() == 2)
                     stringSeconds += seconds;
 
@@ -194,6 +243,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     stringMillies += "0" + millies;
                 else if (String.valueOf(millies).length() == 3)
                     stringMillies += millies;
+
+                if (seconds < 10 && seconds > 3)
+                    countDownTimerTxt.setTextColor(getResources().getColor(R.color.dark_orange_color));
+                else if (seconds <=3)
+                    countDownTimerTxt.setTextColor(getResources().getColor(R.color.red_record_color));
 
                 countDownTimerTxt.setText(stringSeconds + "." + stringMillies);
                 if(!moleIsActive)
@@ -298,4 +352,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         intent.putExtra(GameActivity.FINAL_SCORE_VALUE_EXTRA, scoreTxt.getText().toString());
         GameActivity.this.startActivity(intent);
     }
+
+
+    public class ScreenReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+                pauseGame();
+            }
+        }
+
+    }
+
 }

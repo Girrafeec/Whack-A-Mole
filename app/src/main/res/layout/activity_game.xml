@@ -4,210 +4,359 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.girrafeecstud.whacamole.GameActivity"
-    android:background="@drawable/ic_sky_background">
+    android:background="@drawable/ic_sky_background"
+    app:layoutDescription="@xml/activity_game_scene"
+    tools:context="com.girrafeecstud.whacamole.GameActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/countDownTimerTxt"
-        android:text="30.000"
-        android:textSize="30dp"
-        android:textColor="@color/main_orange"
-        android:background="@drawable/yellow_button_regular"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:scaleType="centerCrop"/>
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/scoreTxt"
-        android:text="0"
-        android:textSize="40dp"
-        android:textColor="@color/main_orange"
+        android:layout_marginTop="10dp"
         android:background="@drawable/yellow_button_regular"
+        android:padding="10dp"
+        android:scaleType="centerCrop"
+        android:text="30.000"
+        android:textColor="@color/main_orange"
+        android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/countDownTimerTxt"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/scoreTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:padding="10dp"/>
+        android:background="@drawable/yellow_button_regular"
+        android:padding="10dp"
+        android:text="0"
+        android:textColor="@color/main_orange"
+        android:textSize="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/countDownTimerTxt" />
 
     <ImageButton
+        android:id="@+id/pauseGameBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/pauseGameBtn"
-        android:background="@drawable/yellow_button_selector"
-        android:src="@drawable/pause_selector"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:padding="10dp"
         android:layout_margin="10dp"
-        android:visibility="gone"/>
+        android:background="@drawable/yellow_button_selector"
+        android:padding="10dp"
+        android:src="@drawable/pause_selector"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/holeFieldLinLay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/holeFieldLinLay"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scoreTxt"
+        android:background="@drawable/ic_grass_background"
         android:orientation="vertical"
-        android:background="@drawable/ic_grass_background">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scoreTxt">
+
+        <LinearLayout
+            android:id="@+id/firstHoleLineLinLay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+            <ImageButton
+                android:id="@+id/firstMoleBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:padding="5dp"
+                android:src="@drawable/ic_mole_hole" />
+
+            <ImageButton
+                android:id="@+id/secondMoleBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:padding="5dp"
+                android:src="@drawable/ic_mole_hole" />
+
+            <ImageButton
+                android:id="@+id/thirdMoleBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:padding="5dp"
+                android:src="@drawable/ic_mole_hole" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/secondHoleLineLinLay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageButton
+                android:id="@+id/fourthMoleBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:padding="5dp"
+                android:src="@drawable/ic_mole_hole" />
+
+            <ImageButton
+                android:id="@+id/fifthMoleBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:padding="5dp"
+                android:src="@drawable/ic_mole_hole" />
+
+            <ImageButton
+                android:id="@+id/sixthMoleBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:padding="5dp"
+                android:src="@drawable/ic_mole_hole" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/thirdHoleLineLinLay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageButton
+                android:id="@+id/seventhMoleBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:padding="5dp"
+                android:src="@drawable/ic_mole_hole" />
+
+            <ImageButton
+                android:id="@+id/eigthMoleBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:padding="5dp"
+                android:src="@drawable/ic_mole_hole" />
+
+            <ImageButton
+                android:id="@+id/ninethMoleBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:padding="5dp"
+                android:src="@drawable/ic_mole_hole" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--<LinearLayout
+        android:id="@+id/molesLinLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scoreTxt">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/firstHoleLineLinLay"
             android:orientation="horizontal"
             android:padding="15dp">
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/firstMoleBtn"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_mole_hole"
+                android:layout_gravity="bottom"
                 android:layout_weight="1"
-                android:padding="5dp"
+                android:background="@android:color/transparent"
                 android:clickable="false"
-                android:layout_gravity="bottom"/>
+                android:padding="5dp"
+                android:src="@drawable/ic_mole_new" />
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/secondMoleBtn"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_mole_hole"
+                android:layout_gravity="bottom"
                 android:layout_weight="1"
-                android:padding="5dp"
+                android:background="@android:color/transparent"
                 android:clickable="false"
-                android:layout_gravity="bottom"/>
+                android:padding="5dp"
+                android:src="@drawable/ic_mole_hole" />
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/thirdMoleBtn"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_mole_hole"
+                android:layout_gravity="bottom"
                 android:layout_weight="1"
-                android:padding="5dp"
+                android:background="@android:color/transparent"
                 android:clickable="false"
-                android:layout_gravity="bottom"/>
+                android:padding="5dp"
+                android:src="@drawable/ic_mole_hole" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/secondHoleLineLinLay"
             android:orientation="horizontal"
             android:padding="10dp">
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/fourthMoleBtn"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_mole_hole"
+                android:layout_gravity="bottom"
                 android:layout_weight="1"
-                android:padding="5dp"
+                android:background="@android:color/transparent"
                 android:clickable="false"
-                android:layout_gravity="bottom"/>
+                android:padding="5dp"
+                android:src="@drawable/ic_mole_hole" />
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/fifthMoleBtn"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_mole_hole"
+                android:layout_gravity="bottom"
                 android:layout_weight="1"
-                android:padding="5dp"
+                android:background="@android:color/transparent"
                 android:clickable="false"
-                android:layout_gravity="bottom"/>
+                android:padding="5dp"
+                android:src="@drawable/ic_mole_hole" />
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/sixthMoleBtn"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_mole_hole"
+                android:layout_gravity="bottom"
                 android:layout_weight="1"
-                android:padding="5dp"
+                android:background="@android:color/transparent"
                 android:clickable="false"
-                android:layout_gravity="bottom"/>
+                android:padding="5dp"
+                android:src="@drawable/ic_mole_hole" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/thirdHoleLineLinLay"
             android:orientation="horizontal"
             android:padding="10dp">
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/seventhMoleBtn"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_mole_hole"
+                android:layout_gravity="bottom"
                 android:layout_weight="1"
-                android:padding="5dp"
+                android:background="@android:color/transparent"
                 android:clickable="false"
-                android:layout_gravity="bottom"/>
+                android:padding="5dp"
+                android:src="@drawable/ic_mole_hole" />
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/eigthMoleBtn"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_mole_hole"
+                android:layout_gravity="bottom"
                 android:layout_weight="1"
-                android:padding="5dp"
+                android:background="@android:color/transparent"
                 android:clickable="false"
-                android:layout_gravity="bottom"/>
+                android:padding="5dp"
+                android:src="@drawable/ic_mole_hole" />
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/ninethMoleBtn"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_mole_hole"
+                android:layout_gravity="bottom"
                 android:layout_weight="1"
-                android:padding="5dp"
+                android:background="@android:color/transparent"
                 android:clickable="false"
-                android:layout_gravity="bottom"/>
+                android:padding="5dp"
+                android:src="@drawable/ic_mole_hole" />
 
         </LinearLayout>
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <com.gusakov.library.PulseCountDown
-        android:layout_width = "wrap_content"
-        android:layout_height = "wrap_content"
-        android:id = "@+id/pulseCountDown"
-        android:elegantTextHeight = "true"
+        android:id="@+id/pulseCountDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elegantTextHeight="true"
         android:fontFamily="@font/bauhaus_93"
-        android:textDirection = "firstStrong"
-        android:textAllCaps = "true"
-        android:textStyle = "normal"
-        android:paddingRight = "14dp"
-        android:paddingTop = "10dp"
-        android:paddingBottom = "8dp"
-        android:paddingLeft = "16dp"
-        android:textColor = "@color/white"
-        android:text = "3"
-        android:textSize = "100dp"
-        app:pc_endValue = "0"
-        app:pc_startValue = "3"
-        app:layout_constraintTop_toTopOf="parent"
+        android:paddingLeft="16dp"
+        android:paddingTop="10dp"
+        android:paddingRight="14dp"
+        android:paddingBottom="8dp"
+        android:text="3"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textDirection="firstStrong"
+        android:textSize="100dp"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:pc_endValue="0"
+        app:pc_startValue="3" />
+
+    <TextView
+        android:id="@+id/startPauseMessageTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bauhaus_93"
+        android:paddingLeft="16dp"
+        android:paddingTop="10dp"
+        android:paddingRight="14dp"
+        android:paddingBottom="8dp"
+        android:text="Pause"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textDirection="firstStrong"
+        android:textSize="50dp"
+        android:textStyle="normal"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
